@@ -1,13 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
+import Dashboard from './components/Dashboard';
+
 
 function App() {
   return (
-    <div >
-      <Typography></Typography>
-    </div>
+    <Grid container justifyContent="center" >
+      <Grid item xs={12} >
+        <Typography variant='h2' textAlign="center">Asteroid Dashboard</Typography>
+      </Grid>
+      <Grid item xs={10} sx={{ backgroundColor: '#FFFFFF', padding: 4 }}>
+        <Dashboard />
+      </Grid>
+    </Grid>
   );
 }
 
