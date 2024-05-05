@@ -1,113 +1,52 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
+import { Box } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Asteroid } from '../models/Asteroid';
 
-interface Column {
-    id: 'name' | 'time' | 'potential-hazard' | 'estimated-diameter' | 'miss-distance' | 'velocity';
-    label: string;
-    minWidth?: number;
-    align?: 'right';
-    format?: (value: number) => string;
-}
-
-const columns: readonly Column[] = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'time', label: 'Time of close approach', minWidth: 100 },
-    { id: 'potential-hazard', label: 'Potential Hazard', minWidth: 170 },
-    { id: 'estimated-diameter', label: 'Estimated Diameter', minWidth: 170 },
-    { id: 'miss-distance', label: 'Miss Distance', minWidth: 170 },
-    { id: 'velocity', label: 'Velocity', minWidth: 170 },
+const columns: GridColDef[] = [
+    { field: 'name', headerName: 'Name', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160, },
+    { field: 'time', headerName: 'Time of close approach', headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 240 },
+    { field: 'potentialHazard', headerName: 'Potential Hazard', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160 },
+    { field: 'estimatedDiameter', headerName: 'Estimated Diameter', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160 },
+    { field: 'missDistance', headerName: 'Miss Distance', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160 },
+    { field: 'velocity', headerName: 'Velocity', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160 },
+    { field: 'note', headerName: 'Note', flex: 1, headerAlign: 'center', align: 'center', headerClassName: 'super-app-theme--header', minWidth: 160, editable: true, type: 'string' },
 ];
 
-
-// const rows = [
-//     createData('India', 'IN', 1324171354, 3287263),
-//     createData('China', 'CN', 1403500365, 9596961),
-//     createData('Italy', 'IT', 60483973, 301340),
-//     createData('United States', 'US', 327167434, 9833520),
-//     createData('Canada', 'CA', 37602103, 9984670),
-//     createData('Australia', 'AU', 25475400, 7692024),
-//     createData('Germany', 'DE', 83019200, 357578),
-//     createData('Ireland', 'IE', 4857000, 70273),
-//     createData('Mexico', 'MX', 126577691, 1972550),
-//     createData('Japan', 'JP', 126317000, 377973),
-//     createData('France', 'FR', 67022000, 640679),
-//     createData('United Kingdom', 'GB', 67545757, 242495),
-//     createData('Russia', 'RU', 146793744, 17098246),
-//     createData('Nigeria', 'NG', 200962417, 923768),
-//     createData('Brazil', 'BR', 210147125, 8515767),
-// ];
 interface Props {
     data: Asteroid[]
 }
-export default function SpreadSheet() {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
+export default function SpreadSheet({ data }: Props) {
 
     return (
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            {/* <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader >
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            /> */}
-        </Paper>
+        <Box
+            sx={{
+                height: 480,
+                width: '100%',
+                '& .super-app-theme--header': {
+                    backgroundColor: 'rgba(255, 7, 0, 0.55)',
+                    fontSize: '16px',
+
+                },
+            }}
+        >
+            <DataGrid
+                rows={data}
+                columns={columns}
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 10 },
+                    },
+                    sorting: {
+                        sortModel: [{ field: 'time', sort: 'desc' }]
+                    }
+                }}
+                pageSizeOptions={[5, 10, 25]}
+                disableRowSelectionOnClick
+                processRowUpdate={(updatedRow) => {
+                     localStorage.setItem(updatedRow.id,updatedRow.note)
+                     return updatedRow
+                }}
+            />
+        </Box>
     );
 }
