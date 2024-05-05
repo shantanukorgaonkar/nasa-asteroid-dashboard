@@ -21,11 +21,13 @@
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
-
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
   },
   "include": [
     "src"
   ],
-  "types": [ "node" ]
+  "types": [
+    "node"
+  ]
 }
