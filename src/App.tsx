@@ -1,7 +1,5 @@
-import './App.css';
 import { Grid, Typography } from '@mui/material';
 import Dashboard from './components/Dashboard';
-import Chart from './components/BarChart';
 
 
 function App() {
@@ -13,7 +11,6 @@ function App() {
       <Grid item xs={10} sx={{ backgroundColor: '#FFFFFF', padding: 4 }}>
         <Dashboard />
       </Grid>
-
     </Grid>
   );
 }

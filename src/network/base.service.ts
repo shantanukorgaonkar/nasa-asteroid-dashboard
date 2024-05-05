@@ -1,13 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-
 class BaseService {
     private axiosInstance: AxiosInstance;
     private apiKey = process.env.REACT_APP_API_KEY;
 
-
     constructor() {
-
         this.axiosInstance = axios.create({
             baseURL: 'https://api.nasa.gov',
             headers: {
